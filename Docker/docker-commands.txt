@@ -1,0 +1,46 @@
+FROM node:16-alpine (where alpine is linux flavor, node is here because we want node app to be dockorized);
+
+=====
+COPY . /app/ (to copy all files in current directory to app folder (present in container));
+            or
+WORKDIR /app (initialize working dir on top)
+
+COPY . . (second dot is destination of app folder in docker container);
+
+=====
+
+EXPOSE <PORT_NUMBER> (to expose running port for port mapping)
+
+RUN npm install (to install node modules)
+
+Note:
+  1) In your application there will be only one CMD command only while you can use RUN command multiple times.
+  2) you can also use ENTRYPOINT command instead of CMD, both works same
+  3) dangling images are those images which are not in use but there status is "IN USE"
+  4) Docker compose automates the process and it is used for multi container apps
+
+
+COMMANDS:
+ 1) "docker image build -t <Image-name>:<version> . "(to build image)
+ 2) "docker images/docker image ls" (To list down all images)
+ 3) "docker container run <Image-name>" (To create new container and our image will be automatically run inside it)
+ 4) "docker container ls" (To list down all RUNNING containers)
+ 5) "docker container ls -a" (To list down all containers)
+ 6) "docker container start <container_id>" (To start existing container)
+ 7) "docker exec -it <container_id> sh" (To enter in container terminal/shell)
+ 8) "docker container stop <container_id or container_name>" (To stop existing container)
+ 9) "docker container run -d --name <container_name> <image_name>" (To run container with name in detached mode)
+ 10) "docker logs <container_name>" (To print logs of running container)
+ 11) "docker logs <container_name> -n 2" (To print last two lines of logs of running container)
+ 12) "docker container run -d -p <Local_port>:<container_port> --name c2 my-node-app" (To create PORT MAPPING)
+ 13) "docker container prune" (Remove all stopped containers)
+ 14) "docker image prune" (Remove all dangling images)
+ 15) "docker system prune" (Remove all stopped containers and images)
+ 16) "docker image build -t abdullah2601/my-node-app:1.0.0 ." (to create image for docker hub)
+ 17) "docker login" (to login into docker hub)
+ 18) "docker push abdullah2601/my-node-app:1.0.0" (to push docker image to docker hub)
+  19) "docker pull abdullah2601/my-node-app:1.0.0" (to pull docker image from docker hub)
+  20) "docker compose up -d" (to compose docker app in detached mode)
+  21) "docker compose ps" (to list down all containers)
+  22) "docker compose down" (to remove containers)
+  23) "docker compose build" (to build docker image)
